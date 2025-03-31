@@ -1,0 +1,14 @@
+# Cockatoo Gateway
+
+Cockatoo Gateway is a simple gateway that forwards requests to a specified backend microservice.
+
+## Docker
+
+To build an image run ``docker build -t cockatoo-gateway .`` from ``./CockatooGateway/``.
+
+To run the image, run ```docker run -d -p 5000:5000 --name cockatoo-gateway cockatoo-gateway``.
+
+You can also run this together by executing the following command:
+
+```docker build -t cockatoo-gateway .
+docker run -d -p 5000:5000 --name cockatoo-gateway cockatoo-gateway```
