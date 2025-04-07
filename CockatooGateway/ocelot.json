@@ -1,14 +1,20 @@
 {
   "Routes": [
     {
+      "HttpHandlerOptions": {
+        "UseAuthorizationHeader": true
+      },
       "DownstreamPathTemplate": "/api/posts/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "localhost",
           "Port": 8080
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Auth0"
+      },
       "UpstreamPathTemplate": "/api/posts/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
@@ -17,7 +23,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "localhost",
           "Port": 9080
         }
       ],
