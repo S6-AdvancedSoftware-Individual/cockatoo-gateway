@@ -8,7 +8,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "host.docker.internal",
           "Port": 8080
         }
       ],
@@ -16,19 +16,19 @@
         "AuthenticationProviderKey": "Auth0"
       },
       "UpstreamPathTemplate": "/api/posts/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
     },
     {
       "DownstreamPathTemplate": "/api/accounts/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "host.docker.internal",
           "Port": 9080
         }
       ],
       "UpstreamPathTemplate": "/api/accounts/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
     }
   ],
   "GlobalConfiguration": {

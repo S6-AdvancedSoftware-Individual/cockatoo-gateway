@@ -17,8 +17,6 @@ builder.Configuration
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-builder.WebHost.UseUrls("http://localhost:5000", "https://localhost:5001");
-
 // Configure CORS
 builder.Services.AddCors(options =>
 {
@@ -40,11 +38,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         NameClaimType = ClaimTypes.NameIdentifier
     };
 });
-
-builder.Services
-  .AddAuthorization(options =>
-  {
-  });
 
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("scp");
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Add("scp", "scope");
