@@ -1,5 +1,11 @@
+using CockatooGateway;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +28,26 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer("Auth0", options =>
+{
+    options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}/";
+    options.Audience = builder.Configuration["Auth0:Audience"];
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = ClaimTypes.NameIdentifier
+    };
+});
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("scp");
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Add("scp", "scope");
+
+
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
 // Add services
 builder.Services.AddOcelot();
+
 
 var app = builder.Build();
 
@@ -33,6 +57,8 @@ app.UseCors("AllowSpecificOrigins");
 // Configure middleware
 app.UseRouting();
 
-await app.UseOcelot();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseOcelot().Wait();
 
 app.Run();
