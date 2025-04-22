@@ -16,7 +16,13 @@
         "AuthenticationProviderKey": "Auth0"
       },
       "UpstreamPathTemplate": "/api/posts/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 2.5,
+        "Limit": 10
+      }
     },
     {
       "DownstreamPathTemplate": "/api/accounts/{everything}",
@@ -28,10 +34,22 @@
         }
       ],
       "UpstreamPathTemplate": "/api/accounts/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 2.5,
+        "Limit": 10
+      }
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
+    "BaseUrl": "http://localhost:5000",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "You've been rate-limited, please try again later.",
+      "HttpStatusCode": 429,
+      "ClientIdHeader": "MyRateLimiting"
+    }
   }
 }
