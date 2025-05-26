@@ -61,6 +61,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAssertion(_ => true)
+        .Build();
+});
+
 // Configure authorization policies
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("scp");
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Add("scp", "scope");
