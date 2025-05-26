@@ -1,22 +1,16 @@
 {
   "Routes": [
     {
-      "HttpHandlerOptions": {
-        "UseAuthorizationHeader": true
-      },
       "DownstreamPathTemplate": "/api/posts/search",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "cockatoo-posts-api",
           "Port": 8080
         }
       ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Auth0"
-      },
       "UpstreamPathTemplate": "/api/posts/search",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "UpstreamHttpMethod": ["Get", "Post"],
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "5s",
@@ -25,24 +19,18 @@
       }
     },
     {
-      "HttpHandlerOptions": {
-        "UseAuthorizationHeader": true
-      },
       "DownstreamPathTemplate": "/api/posts/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "cockatoo-posts-api",
           "Port": 8080
         }
       ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Auth0"
-      },
       "UpstreamPathTemplate": "/api/posts/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"],
       "RateLimitOptions": {
-        "EnableRateLimiting": true,
+        "EnableRateLimiting": false,
         "Period": "5s",
         "PeriodTimespan": 2,
         "Limit": 10
@@ -53,14 +41,14 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "cockatoo-accounts-api",
           "Port": 9080
         }
       ],
       "UpstreamPathTemplate": "/api/accounts/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"],
       "RateLimitOptions": {
-        "EnableRateLimiting": true,
+        "EnableRateLimiting": false,
         "Period": "5s",
         "PeriodTimespan": 2,
         "Limit": 10

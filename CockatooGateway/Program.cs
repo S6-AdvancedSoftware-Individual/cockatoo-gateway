@@ -43,7 +43,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://localhost:5173", "http://localhost:3000", "http://localhost:80")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -75,23 +75,24 @@ builder.Services.AddOcelot();
 var app = builder.Build();
 
 // Custom middleware to log unauthenticated requests
-app.Use(async (context, next) =>
-{
-    if (!context.User.Identity?.IsAuthenticated ?? true)
-    {
-        Log.Warning("Unauthenticated request: {Method} at '{Path}' from '{IP}'",
-            context.Request.Method,
-            context.Request.Path,
-            context.Connection.RemoteIpAddress);
-    }
-    await next();
-});
+//app.Use(async (context, next) =>
+//{
+//    if (!context.User.Identity?.IsAuthenticated ?? true)
+//    {
+//        Log.Warning("Unauthenticated request: {Method} at '{Path}' from '{IP}'",
+//            context.Request.Method,
+//            context.Request.Path,
+//            context.Connection.RemoteIpAddress);
+//    }
+//    await next();
+//});
 
 // Use CORS middleware
 app.UseCors("AllowSpecificOrigins");
 
 // Configure the HTTP request pipeline
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Configure health checks
@@ -106,10 +107,7 @@ app.UseEndpoints(e =>
     e.MapControllers();
 });
 
-
 // Configure authentication and authorization
-app.UseAuthentication();
-
 app.MapControllers();
 
 // Configure Ocelot middleware
