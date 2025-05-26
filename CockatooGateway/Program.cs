@@ -15,6 +15,8 @@ var betterstack_endpoint = Environment.GetEnvironmentVariable("BETTERSTACK_ENDPO
 var auth0_domain = Environment.GetEnvironmentVariable("AUTH0_DOMAIN") ?? "";
 var auth0_audience = Environment.GetEnvironmentVariable("AUTH0_AUDIENCE") ?? "";
 
+var APPLICATION_VERSION = "v1.0.1";
+
 var builder = WebApplication.CreateBuilder(args);
 
 //Configure SeriLog as the global logger.
@@ -26,6 +28,8 @@ Log.Logger = new LoggerConfiguration()
     )
     .MinimumLevel.Information()
     .CreateLogger();
+
+Log.Information("Running Cockatoo Gateway {Version}.", APPLICATION_VERSION);
 
 builder.Logging.ClearProviders();
 builder.Host.UseSerilog();
