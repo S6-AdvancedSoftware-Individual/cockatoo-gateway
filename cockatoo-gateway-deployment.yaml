@@ -50,4 +50,5 @@ spec:
                 secretKeyRef:
                   name: cockatoo-global-secret
                   key: AUTH0_AUDIENCE
+
       restartPolicy: Always

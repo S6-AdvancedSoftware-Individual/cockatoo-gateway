@@ -88,7 +88,7 @@ jobs:
 
       - name: Deploy new image
         run: |
-          kubectl set image deployment/${{ secrets.DEPLOYMENT_NAME }} ${{ secrets.CONTAINER_NAME }}=${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_ACCOUNT_MICROSERVICE }}:${{ github.sha }} --namespace=${{ secrets.NAMESPACE }}
+          kubectl set image deployment/${{ secrets.DEPLOYMENT_NAME }} ${{ secrets.CONTAINER_NAME }}=${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_REPO_GATEWAY }}:${{ github.sha }} --namespace=${{ secrets.NAMESPACE }}
 
       - name: Verify rollout
         run: |
