@@ -46,7 +46,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/accounts/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"],
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete", "Patch"],
       "RateLimitOptions": {
         "EnableRateLimiting": false,
         "Period": "5s",
