@@ -13,3 +13,9 @@ services:
       - BETTERSTACK_ENDPOINT=${BETTERSTACK_ENDPOINT}
       - AUTH0_DOMAIN=${AUTH0_DOMAIN}
       - AUTH0_AUDIENCE=${AUTH0_AUDIENCE}
+    networks:
+      - cockatoo-network
+
+networks:
+  cockatoo-network:
+    external: true
